@@ -32,6 +32,3 @@ public class AppDbContext : IdentityDbContext<Usuario>
                 #endregion
         }
 }
-
-
-

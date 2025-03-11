@@ -15,8 +15,7 @@ Abrir o arquivo .csproj
 
 Camada de dados (Models)
 
-
-criari contexto na pasta Data
+criar contexto na pasta Data
 
 configurar a conectionstring no arquivo appsettings.json
 

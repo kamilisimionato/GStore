@@ -7,16 +7,58 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6">
-                <img class="card-img-top mb-5 mb-md-0"
-                    src="@(Model.Produto.Fotos.Count == 0 ? "https://dummyimage.com/600x700/dee2e6/6c757d.jpg" :
-                    Model.Produto.Fotos[0].ArquivoFoto)" alt="..." /></div>
-            <div class="col-md-6">
+            <div class="col-md-5">
+                @if (Model.Produto.Fotos.Count == 0)
+                {
+                    <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg"
+                        alt="@Model.Produto.Nome" />
+                }
+                else
+                {
+                    <div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            @for (int i = 0; i < Model.Produto.Fotos.Count(); i++)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                    class='@(i == 0 ? "active" : "")' aria-current='@(i == 0 ? "true" : "false")'
+                                    aria-label="Slide @(i+1)">
+                                </button>
+                            }
+                        </div>
+                        <div class="carousel-inner">
+                            @for (int i = 0; i < Model.Produto.Fotos.Count(); i++)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="@Model.Produto.Fotos[i].ArquivoFoto"
+                                  class="d-block w-100" alt="@Model.Produto.Nome">
+                                </div>
+                            }
+                            <div class="carousel-item">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="col-md-7">
                 <div class="small mb-1">Categoria: @Model.Produto.Categoria.Nome</div>
                 <h1 class="display-5 fw-bolder">@Model.Produto.Nome</h1>
                 <div class="fs-5 mb-5">
                     <span class="text-decoration-line-through">
-                    R$ @((Model.Produto.ValorVenda * 1.05M).ToString("N2"))
+                        R$ @((Model.Produto.ValorVenda * 1.05M).ToString("N2"))
                     </span>
                     <span>R$ @Model.Produto.ValorVenda.ToString("N2")</span>
                 </div>
@@ -41,25 +83,26 @@
             @foreach (var produto in Model.Semelhantes)
             {
                 <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="@(produto.Fotos.Count == 0 ?
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" 
+                        src="@(produto.Fotos.Count == 0 ?
                     "https://dummyimage.com/450x300/dee2e6/6c757d.jpg" :
                     produto.Fotos[0].ArquivoFoto)" alt="@produto.Nome" />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">@produto.Nome</h5>
-                            <!-- Product price-->
-                            R$ @produto.ValorVenda.ToString("N2")
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">@produto.Nome</h5>
+                                <!-- Product price-->
+                                R$ @produto.ValorVenda.ToString("N2")
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                    </div>
-                </div>
                 </div>
             }
         </div>

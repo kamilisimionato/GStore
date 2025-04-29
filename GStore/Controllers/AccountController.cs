@@ -84,6 +84,13 @@ public async Task<IActionResult> Logout()
     return RedirectToAction("Index", "Home");
 }
 
+[HttpGet]
+public IActionResult Registro()
+{
+    RegistroVM register = new();
+    return ViewModels(register);
+}
+
         public bool IsValidEmail(string email)
         {
             try

@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GStore.Models;
 
+[Table("usuario")]
 public class Usuario : IdentityUser
 {
     [Required(ErrorMessage = "Informe seu nome")]
